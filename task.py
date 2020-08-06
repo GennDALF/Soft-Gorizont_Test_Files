@@ -10,6 +10,7 @@ locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
 CHECK_INPUT_RATE = 10
 
 
+# reading from input files and writing output
 def update_files():
     input_data = []
     for i in range(1, 6):
@@ -32,7 +33,7 @@ def update_files():
     return None
 
 
-# our retailers
+# our retailers: feel free to edit
 companies = {1: 'фирма 1',
              2: 'фирма 2',
              3: 'фирма 3',
@@ -61,3 +62,4 @@ try:
 
 except OSError:
     print("Где моя входная директория?")
+
