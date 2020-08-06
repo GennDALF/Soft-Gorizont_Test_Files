@@ -6,11 +6,11 @@ from csv import reader as csv_read, writer as csv_write
 from datetime import datetime as dt
 
 locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
-# refreshing once in 10 seconds
+# refresh once in 10 seconds: feel free to edit
 CHECK_INPUT_RATE = 10
 
 
-# reading from input files and writing output
+# this reads from input files and writes output
 def update_files():
     input_data = []
     for i in range(1, 6):
@@ -33,14 +33,15 @@ def update_files():
     return None
 
 
-# our retailers: feel free to edit
+# our retailers: feel free to edit strings
 companies = {1: 'фирма 1',
              2: 'фирма 2',
              3: 'фирма 3',
              4: 'фирма 4',
              5: 'фирма 5'}
 try:
-    # checking if directory '.\in' exists and
+    # checks if directory '.\in' exists
+    #   and notes time of directory last modification
     last_mod = getmtime('.\\in')
     # initial run
     update_files()
@@ -48,9 +49,12 @@ try:
     # as not having a task to set up any interface,
     #   we'll keep main loop stupid but simple
     while True:
-        # checking if input files (still) exist
+        # checks if input files (still) exist
         if all([isfile(f'.\\in\\{str(i)}.csv') for i in range(1, 6)]):
+            # writes to list all files' last modification time
             mod_times = [getmtime(f'.\\in\\{str(i)}.csv') for i in range(1, 6)]
+            # if just one time from that list differ from last_mod
+            #   then update all
             if any([time - last_mod > 0 for time in mod_times]):
                 last_mod = max(mod_times)
                 update_files()
@@ -62,4 +66,3 @@ try:
 
 except OSError:
     print("Где моя входная директория?")
-
